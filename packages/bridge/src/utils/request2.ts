@@ -33,6 +33,7 @@ import type {
 
 type AnyEventName = EventName | EventName[];
 
+export type Request2Error = RequestError;
 export type Request2CaptureEventsFn<E extends EventName[]> = RequestCaptureEventsFn<E>;
 export type Request2CaptureEventFn<E extends EventName> = RequestCaptureEventFn<E>;
 export type Request2CaptureFn<E extends AnyEventName> = RequestCaptureFn<E>;
@@ -63,8 +64,8 @@ export function request2Fp<
 >(
   method: M,
   eventOrEvents: E,
-  options: RequestFpOptions<E> & { params: MethodParams<M> },
-): TE.TaskEither<RequestError | AbortError, Request2Result<E>>;
+  options: Request2FpOptions<E> & { params: MethodParams<M> },
+): TE.TaskEither<Request2Error | AbortError, Request2Result<E>>;
 
 /**
  * Calls a method waiting for the specified event(-s) to occur.
@@ -79,8 +80,8 @@ export function request2Fp<
 >(
   method: M,
   eventOrEvents: E,
-  options?: RequestFpOptions<E> & { params?: MethodParams<M> },
-): TE.TaskEither<RequestError | AbortError, Request2Result<E>>;
+  options?: Request2FpOptions<E> & { params?: MethodParams<M> },
+): TE.TaskEither<Request2Error | AbortError, Request2Result<E>>;
 
 /**
  * Calls a method waiting for the specified event(-s) to occur.
@@ -95,8 +96,8 @@ export function request2Fp<
 >(
   method: M,
   eventOrEvents: E,
-  options?: RequestFpOptions<E>,
-): TE.TaskEither<RequestError | AbortError, Request2Result<E>>;
+  options?: Request2FpOptions<E>,
+): TE.TaskEither<Request2Error | AbortError, Request2Result<E>>;
 
 export function request2Fp<
   M extends MethodName,
@@ -105,8 +106,8 @@ export function request2Fp<
 >(
   method: M,
   eventOrEvents: E,
-  options: RequestFpOptions<E> & { params?: MethodParams<M> } = {},
-): TE.TaskEither<RequestError | AbortError, Request2Result<E>> {
+  options: Request2FpOptions<E> & { params?: MethodParams<M> } = {},
+): TE.TaskEither<Request2Error | AbortError, Request2Result<E>> {
   const {
     // If no capture function was passed, we capture the first compatible event.
     capture = () => true,
@@ -128,8 +129,8 @@ export function request2Fp<
         const isEventsArray = Array.isArray(eventOrEvents);
         if (
           isEventsArray
-            ? (capture as RequestCaptureEventsFn<EventName[]>)({ event, payload })
-            : (capture as RequestCaptureEventFn<EventName>)(payload)
+            ? (capture as Request2CaptureEventsFn<EventName[]>)({ event, payload })
+            : (capture as Request2CaptureEventFn<EventName>)(payload)
         ) {
           result.set([
             (isEventsArray ? { event, payload } : payload) as Request2Result<E>,
@@ -177,7 +178,7 @@ export function request2Fp<
 export function request2<M extends MethodNameWithRequiredParams, E extends AnyEventName>(
   method: M,
   eventOrEvents: E,
-  options: RequestOptions<E> & { params: MethodParams<M> },
+  options: Request2Options<E> & { params: MethodParams<M> },
 ): BetterPromise<Request2Result<E>>;
 
 /**
@@ -186,7 +187,7 @@ export function request2<M extends MethodNameWithRequiredParams, E extends AnyEv
 export function request2<M extends MethodNameWithOptionalParams, E extends AnyEventName>(
   method: M,
   eventOrEvents: E,
-  options?: RequestOptions<E> & { params?: MethodParams<M> },
+  options?: Request2Options<E> & { params?: MethodParams<M> },
 ): BetterPromise<Request2Result<E>>;
 
 /**
@@ -195,13 +196,13 @@ export function request2<M extends MethodNameWithOptionalParams, E extends AnyEv
 export function request2<M extends MethodNameWithoutParams, E extends AnyEventName>(
   method: M,
   eventOrEvents: E,
-  options?: RequestOptions<E>,
+  options?: Request2Options<E>,
 ): BetterPromise<Request2Result<E>>;
 
 export function request2<M extends MethodName, E extends AnyEventName>(
   method: M,
   eventOrEvents: E,
-  options?: RequestOptions<E> & { params?: MethodParams<M> },
+  options?: Request2Options<E> & { params?: MethodParams<M> },
 ): BetterPromise<Request2Result<E>> {
   const { postEvent } = options || {};
 
