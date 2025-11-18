@@ -1,10 +1,10 @@
-import { describe, expect, it, vi } from 'vitest';
-import * as TE from 'fp-ts/TaskEither';
-
-import { Popup, type PopupOptions } from '@/features/Popup/Popup.js';
 import { testIsSupportedPure } from '@test-utils/predefined/testIsSupportedPure.js';
 import { testSafetyPure } from '@test-utils/predefined/testSafetyPure.js';
 import type { InstantiateOptions } from '@test-utils/types.js';
+import * as TE from 'fp-ts/TaskEither';
+import { describe, expect, it, vi } from 'vitest';
+
+import { Popup, type PopupOptions } from '@/features/Popup/Popup.js';
 
 const MIN_VERSION = '6.2';
 

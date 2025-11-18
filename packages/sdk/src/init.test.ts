@@ -1,9 +1,9 @@
-import { vi, it, expect, beforeEach, describe } from 'vitest';
-import { createWindow } from 'test-utils';
+import { mockMiniAppsEnv, restoreState } from '@test-utils/utils.js';
 import { emitEvent } from '@tma.js/bridge';
 import * as E from 'fp-ts/Either';
+import { createWindow } from 'test-utils';
+import { vi, it, expect, beforeEach, describe } from 'vitest';
 
-import { mockMiniAppsEnv, restoreState } from '@test-utils/utils.js';
 import { version } from '@/globals/version.js';
 
 import { init } from './init.js';
