@@ -32,12 +32,11 @@ function create({ request, ...rest }: CreateOptions) {
           params: { id: messageId },
         },
       ),
-      TE.chain(response => {
-        if (response && 'error' in response) {
-          return TE.left(new ShareMessageError(response.error));
-        }
-        return TE.right(undefined);
-      }),
+      TE.chain(response => (
+        response.event === 'prepared_message_failed'
+          ? TE.left(new ShareMessageError(response.payload.error))
+          : TE.right(undefined)
+      )),
     );
   }, { ...rest, requires: 'web_app_send_prepared_message', returns: 'task' });
 }

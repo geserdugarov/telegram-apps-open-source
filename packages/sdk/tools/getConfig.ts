@@ -30,7 +30,7 @@ export function getConfig({
       ],
       resolve: {
         alias: {
-          '@test-utils': resolve(dirname(fileURLToPath(import.meta.url)), '../test-utils'),
+          '~/test-utils': resolve(dirname(fileURLToPath(import.meta.url)), '../test-utils'),
           '@': resolve(dirname(fileURLToPath(import.meta.url)), '../src'),
         },
       },

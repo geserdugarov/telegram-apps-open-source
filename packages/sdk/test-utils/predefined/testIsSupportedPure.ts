@@ -1,5 +1,5 @@
 import { it, expect } from 'vitest';
-import { getPrevVersion } from '@test-utils/utils.js';
+import { getPrevVersion } from '~/test-utils/utils.js';
 
 /**
  * Tests if the isSupported property works correctly.

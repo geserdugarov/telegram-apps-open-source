@@ -5,7 +5,7 @@ import { FunctionUnavailableError } from '@/errors.js';
 
 import { getPrevVersion, mockMiniAppsEnv, setVersion } from '../utils.js';
 
-import { testIsSupportedGlobal } from '@test-utils/predefined/testIsSupportedGlobal.js';
+import { testIsSupportedGlobal } from '~/test-utils/predefined/testIsSupportedGlobal.js';
 import { resetGlobals } from '@/globals/resetGlobals.js';
 
 interface BaseOptions<C> {
