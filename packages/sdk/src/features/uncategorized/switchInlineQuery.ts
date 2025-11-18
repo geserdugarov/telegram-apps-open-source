@@ -12,7 +12,7 @@ import type { MaybeAccessor } from '@/types.js';
 import { withChecksFp } from '@/with-checks/withChecksFp.js';
 import { access } from '@/helpers/access.js';
 import { throwifyWithChecksFp } from '@/with-checks/throwifyWithChecksFp.js';
-import { isInlineMode } from '@/globals/inline-mode.js';
+import { isInlineMode } from '@/globals/isInlineMode.js';
 
 interface CreateOptions extends SharedFeatureOptions, WithPostEvent, WithVersion {
   isInlineMode: MaybeAccessor<boolean>;
