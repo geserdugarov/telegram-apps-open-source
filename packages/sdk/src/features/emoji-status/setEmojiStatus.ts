@@ -33,11 +33,11 @@ function create({ request, ...rest }: CreateOptions) {
         },
         ...options,
       }),
-      TE.chainW(response => {
-        return response && 'error' in response
-          ? TE.left(new SetEmojiStatusError(response.error))
-          : TE.right(undefined);
-      }),
+      TE.chainW(response => (
+        response.event === 'emoji_status_failed'
+          ? TE.left(new SetEmojiStatusError(response.payload.error))
+          : TE.right(undefined)
+      )),
     );
   }, {
     ...rest,

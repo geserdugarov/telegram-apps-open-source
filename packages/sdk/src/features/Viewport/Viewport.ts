@@ -236,11 +236,18 @@ export class Viewport<EViewportStable, EFullscreen> {
             ['fullscreen_changed', 'fullscreen_failed'],
             options,
           ),
-          TE.chain(data => {
-            if ('error' in data && data.error !== 'ALREADY_FULLSCREEN') {
-              return TE.left(new FullscreenFailedError(data.error));
+          TE.chain(response => {
+            if (
+              response.event === 'fullscreen_failed'
+              && response.payload.error !== 'ALREADY_FULLSCREEN'
+            ) {
+              return TE.left(new FullscreenFailedError(response.payload.error));
             }
-            stateful.setState({ isFullscreen: 'is_fullscreen' in data ? data.is_fullscreen : true });
+            stateful.setState({
+              isFullscreen: 'is_fullscreen' in response.payload
+                ? response.payload.is_fullscreen
+                : true,
+            });
             return TE.right(undefined);
           }),
         );
