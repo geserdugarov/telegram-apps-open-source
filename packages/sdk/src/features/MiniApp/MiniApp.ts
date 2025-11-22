@@ -256,7 +256,7 @@ export class MiniApp {
               ? postEvent(method, { color: rgb })
               : E.left(new UnknownThemeParamsKeyError(color)),
             E.map(() => {
-              stateful.setState({ [stateKey]: rgb });
+              stateful.setState({ [stateKey]: color });
             }),
           );
         },
